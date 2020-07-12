@@ -15,7 +15,7 @@ However, no other information regarding stores and products are available. Can y
 
 ## Data Description:
 
-Variable	Definition
+Variable	          Definition <br />
 record_ID:          Unique ID for each week store sku combination <br />
 week:     	        Starting Date of the week <br />
 store_id:           Unique ID for each store (no numerical order to be assumed) <br />
@@ -26,5 +26,18 @@ is_featured_sku:	  Was part of the featured item of the week <br />
 is_display_sku:	    Product was on display at a prominent place at the store <br />
 units_sold(Target): Total Units sold for that week-store-sku combination <br />
 
+## Approach:
 
-
+1. Considered this as a regression problem with 'units_sold' as a target <br />
+2. Generated following new features: <br />
+  (a) Count of records per 'sku-id','store-id' and combination of both <br />
+  (b) Average units sold per 'sku-id','store-id' and combination of both <br />
+  (c) Average base-price & total-price per 'sku-id','store-id' and combination of both <br />
+  (d) Week of the year <br />
+  (e) Week number from start of data <br />
+  (f) Week of the month <br />
+  (g) Sine & Cosine transform of week number to capture cyclic nature <br />
+  (e) Price difference percent between base price & total-price <br />
+3. Categorical Encoded 'sku-id' & 'store-id' with MEstimateEncoder() <br />
+4. Trained the data on RandomForest & LGBM Regressor  <br />
+5. Tuned the above models<br />
